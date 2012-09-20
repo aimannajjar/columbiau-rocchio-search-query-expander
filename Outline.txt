@@ -1,0 +1,38 @@
+
+
+____________________________________________________________________________________
+
+For each round:
+	1 - Use Bing API to retrieve top-10              
+	2 - Present results to user and compute P = Precision @ 10
+	3 - If P < TARGET_VALUE:
+		1 - Crawl in each individual URL
+		2 - We index the contents of all documents (Create the Inverted File)
+			* Preprocessing:
+				o Eliminate stop words
+				o (Stemming / (Porter Algorithm) ?)      			
+				o Tokenize
+				o A stream of tokens                     
+			* Hash each token in the hash map
+			* Each entry in the hashmap has "postings list (a list of document IDs that contain this term"
+		3 - Building document vectors for both Relevant and Non-Relevant documents   
+		4 - Build query vector ( 1 - if a term exists in query, 0 - otherwise)
+		5 - Expand Query (Tricky Part)
+
+
+____________________________________________________________________________________		
+
+           Inverted File
+
+hello -> 0 (body:43,title:4,58) ,3 ,6,8	
+john -> 3,8,9
+_________________ 
+
+                    	hello, john
+r_document_vector[0] = ( 	 0.8,   	0.43	);
+r_document_vector[1] = ( 	 0.4,   	0	);
+.                   = 
+.
+.
+.
+query_vector	   = 	( 0, 1 )
