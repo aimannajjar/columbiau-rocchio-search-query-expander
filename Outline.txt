@@ -1,31 +1,137 @@
 
 
 ____________________________________________________________________________________
+       
+##	Algorithm: ##
 
-For each round:
+* Initialization (bing client, ...etc)
+* For each round:                
+	0 - Prompt user for input
 	1 - Use Bing API to retrieve top-10              
 	2 - Present results to user and compute P = Precision @ 10
 	3 - If P < TARGET_VALUE:
 		1 - Crawl in each individual URL
 		2 - We index the contents of all documents (Create the Inverted File)
 			* Preprocessing:
-				o Eliminate stop words
-				o (Stemming / (Porter Algorithm) ?)      			
-				o Tokenize
+				o Tokenize (delimiters: )				
+				o Stem (Porter Algorithm) & Eliminate stop words      			
 				o A stream of tokens                     
 			* Hash each token in the hash map
 			* Each entry in the hashmap has "postings list (a list of document IDs that contain this term"
 		3 - Building document vectors for both Relevant and Non-Relevant documents   
 		4 - Build query vector ( 1 - if a term exists in query, 0 - otherwise)
 		5 - Expand Query (Tricky Part)
-
-
+                                                                          
 ____________________________________________________________________________________		
 
-           Inverted File
+##	Components ##
+    _________________________________________________________
+	| Main_Controller 
+	_________________________________________________________
+	| + main()	 
+	| + init()
+	_________________________________________________________
+	           
+
+	_________________________________________________________
+	| Bing_Client 	   						 
+	_________________________________________________________
+    | + connect()       						 
+	| + static RawBingResponse query(string word)		
+	_________________________________________________________
+	
+	                                                         
+	_________________________________________________________
+	| Parser (RawBingResponse)
+	_________________________________________________________
+	| + int parse()   
+	| + int crawlBodies()
+	| + DocumentsList getDocumentsList()
+	_________________________________________________________	                                                          
+	| - private: DocumentsList documentsList
+	_________________________________________________________	
+
+
+
+	_________________________________________________________
+	| Indexer: Thread   		
+	_________________________________________________________
+	| void index(Document) # running in background (waiting for queue)
+	| String[] tokenize()    
+	| String[] stemAndRemoveStopWords(String[])  
+	| void updateInvertedFile(String[])          
+	| private void run()  # dequeue and index documents
+	_________________________________________________________
+	| - invertedFile  
+	| - invertedStemsFile (if time permits)
+	| - queue
+	| - semaphore
+	| - DocumentsList documentsList  
+	| - emptyIndex()
+	_________________________________________________________
+         
+
+	_________________________________________________________
+	| Query Expander (QueryString, Index)
+	_________________________________________________________
+	|  - buildDocumentVectors() 
+	|  - buildQueryVector()
+	|  - buildOptimizedQueryVector()   # Rocchio Algorithm
+	|  - String optimizeQuery() # Select two terms with highest weights 
+	_________________________________________________________
+	| relevantDocuments: Array of document vectors
+	| nonRelevantDocuments: Array of document vectors
+	| queryVector 
+	| optimizedQueryVector
+	_________________________________________________________
+                                 
+
+	_________________________________________________________
+	PorterStemmer : http://tartarus.org/martin/PorterStemmer/python.txt
+	_________________________________________________________
+	
+
+____________________________________________________________________________________		
+               
+## Data Structures ##
+
+	# DocumentsList Structure #
+   
+	[
+		{   "ID" : 0,
+			"Title": "...", 
+		    "Description": "...",
+			"URL" : "http://....",
+		    "IsRelevant: True/False,
+			"Body": None / "..."
+		 }, 
+		.
+		.
+		.
+		.		
+   ]                               
+
+
+	# Vectors (For Document/Query) #        
+				
+	Array of float numbers [0.34, 0.34, 0.0]
+                			 0 - corresponds to the td.idf weight of the first term in the invertedFile
+                             1 - corresponds to the td.idf weight of the second term in the invertedFile 
+____________________________________________________________________________________
+
+
+
+
+
+
+
+           Inverted File (Stems)
 
 hello -> 0 (body:43,title:4,58) ,3 ,6,8	
-john -> 3,8,9
+john  -> 3,8,9
+learn  -> 3 (0,4),    
+
+
 _________________ 
 
                     	hello, john
