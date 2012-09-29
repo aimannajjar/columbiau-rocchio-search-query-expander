@@ -29,10 +29,12 @@ class Indexer():
 		self.documents_queue.put(document)
 
 
+	def indexerIdle(self):
+		return self.documents_queue.empty()
 
 	def index(self, i, q):
 		while True:
-			logging.info('Indexer-%s: waiting for next document' % i)
+			logging.info('Indexer-%s: Waiting for next document' % i)
 			document = q.get()
 
 			logging.info('Indexer-%s: Indexing document #%s' % (i, document["ID"]))
@@ -54,37 +56,45 @@ class Indexer():
 			p = PorterStemmer()
 			for token in tokens:
 
+				
+				logging.debug('Indexer-%s: Stemming token: \'%s\'' % (i, token))
+
 				# Stem Token
 				token = p.stem(token.lower(), 0,len(token)-1)				
 
 				# Is token eligible to indexed?
-				if (len(token) <= 1 or is_number(token)):
-					pass
+				if (token == '' or len(token) <= 1 or is_number(token)):
+					logging.debug('Indexer-%s: Discarding short or empty token \'%s\'' % (i, token))
+					continue
 
 				terms.append(token)
 
 				# Insert into invertedFile
 				with self.ifile_lock:
-					if self.invertedFile[token] is None:
+					logging.debug('Indexer-%s: Updating postings for token: %s' % (i, token))
+					if not self.invertedFile.has_key(token):
 						self.invertedFile[token] = { }
 
-					if self.invertedFile[token][document["ID"]] is None:
-						self.invertedFile[token][document["ID"]] = []
+					if not self.invertedFile[token].has_key(document["ID"]):
+						self.invertedFile[token][document["ID"]] = { }
 
-					body_postings = {}
-					if self.invertedFile[token][document["ID"]]["body"] is not None:
+					body_postings = []
+					if self.invertedFile[token][document["ID"]].has_key("body"):
 						body_postings = self.invertedFile[token][document["ID"]]["body"]
+						body_postings.append(j)
+					else:
+						self.invertedFile[token][document["ID"]]["body"] = [j]
 
-					body_postings.append(j)
 
 				j = j + 1
 
+			logging.info('Indexer-%s: Finished indexing document %s' % (i, document["ID"]))
 			q.task_done()
 
 
 
 ## TESTER ##
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logging.info("Starting Test")
 url="http://docs.python.org/library/urllib.html"
 req = urllib2.Request(url)
