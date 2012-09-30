@@ -1,3 +1,10 @@
+'''
+Created on Sep 21, 2012
+
+@author: aiman.najjar
+
+'''
+
 import threading
 import datetime
 import settings
@@ -21,10 +28,11 @@ class Indexer():
 
 		for i in range(settings.NUM_INDEXER_THREADS):
 		    worker = Thread(target=self.index, args=(i, self.documents_queue,))
-		    worker.setDaemon(False)
+		    worker.setDaemon(True)
 		    worker.start()		
 
 
+	# Enqueues a task in the indexer queue
 	def indexDocument(self,document):
 		self.documents_queue.put(document)
 
@@ -37,10 +45,19 @@ class Indexer():
 			logging.info('Indexer-%s: Waiting for next document' % i)
 			document = q.get()
 
-			logging.info('Indexer-%s: Indexing document #%s' % (i, document["ID"]))
+			logging.info('Indexer-%s: Indexing document #%s (%s)' % (i, document["ID"], document["Url"]))
 
+
+			# Retrive Entire document
+			url=document["Url"]
+			req = urllib2.Request(url)
+			req.add_header('User-Agent', 'QueryOptimizer') 
+			response = urllib2.urlopen(req)
+			body = response.read()			
+			document["Body"] = body
 			# Strip out HTML
-			processed_body = strip_tags(document["body"])
+			processed_body = strip_tags(document["Body"])
+			document["ProcessedBody"] = processed_body
 
 			# Terms List
 			terms = []
@@ -90,20 +107,4 @@ class Indexer():
 
 			logging.info('Indexer-%s: Finished indexing document %s' % (i, document["ID"]))
 			q.task_done()
-
-
-
-## TESTER ##
-logging.basicConfig(level=logging.INFO)
-logging.info("Starting Test")
-url="http://docs.python.org/library/urllib.html"
-req = urllib2.Request(url)
-response = urllib2.urlopen(req)
-body = response.read()
-
-doc = { "ID": 4343, "body": body }		
-
-indexer = Indexer()
-
-indexer.indexDocument(doc)
 

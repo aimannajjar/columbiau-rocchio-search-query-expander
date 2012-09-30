@@ -34,7 +34,7 @@ class Parser:
     
        #generate list of dictionaries one for each doc
        self.DocumentsList = [{'Description': results[k]['Description'], 'Title': results[k]['Title'], \
-                         'Url': results[k]['Description'], 'IsRelevent': None, 'Body': None} for k in range(resultLength)]
+                         'Url': results[k]['Url'], 'IsRelevant': None, 'Body': None} for k in range(resultLength)]
     
     def getDocList(self):
         

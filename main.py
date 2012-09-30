@@ -3,7 +3,7 @@ Created on Sep 21, 2012
 
 @author: johnterzis
 
-arguments: <bing account key> <precision> <query>
+arguments: <precision> <query>
 '''
 
 import json
@@ -11,30 +11,36 @@ import sys
 import bingclient
 import constants
 import parser
-
+import settings
+import logging
+from indexer import Indexer
 #were using pybing wrapper for bing search api
 #from pybing import Bing
 
 
 
 #only if run as standalone script (not imported module) does, __name__  attribute defaults to __main__
-#assume first arg is <bing acct key> second is <precision> third is <query>
+#assume first arg is <precision> second is <query>
 if __name__ == '__main__':
+
+    logging.basicConfig(level=logging.ERROR)
+    indexer = Indexer()
 
 #create all singleton objects
     arglist = sys.argv 
-    if len(arglist) < 4:
-        print "Missing Arguments!"
+    if len(arglist) < 3:
+        print "Usage: <precision> <query>"
         sys.exit(1) #exit interpreter
     
-    print 'desired precision@10: {}'.format(arglist[2])
-    precisionTenTarg = float(arglist[2])   #must convert string to float
+    print 'Desired precision@10: {}'.format(arglist[1])
+
+    precisionTenTarg = float(arglist[1])   #must convert string to float
     #'eECeOiLBFOie0G3C03YjoHSqb1aMhEfqk8qe7Xi2YMs='
     #connect to client with key arg[1] and post a query with arg[3], query
-    bingClient = bingclient.BingClient(arglist[1])
+    bingClient = bingclient.BingClient(settings.BING_ACCT_KEY)
     
     firstPass = 1
-    precisionAtK = 0
+    precisionAtK = 0.0
     expandedQuery = ''  
     
     #while precision at 10 is less than desired amt issue a query, obtain new precision metric, expand query, repeat
@@ -42,27 +48,37 @@ if __name__ == '__main__':
   
         precisionAtK = 0 #reset precision each round
         #PROCESS A QUERY
+
+        print 'Searching...'
         if firstPass == 1:
-            result = bingClient.webQuery(arglist[3])
+            result = bingClient.webQuery(arglist[2])
         else:
             result = bingClient.webQuery(expandedQuery)
             
         jsonResult = json.loads(result)  #convert string to json
-        print 'found query'
         #put result into a list of documents
         parsedResult = parser.Parser(jsonResult['d']['results'])
         parsedResult.parser()
         DocumentList = parsedResult.getDocList()
-        print DocumentList
                 
         
         #to calc precision@10 display documents to user and ask them to categorize as Relevant or Non-Relevant
         print 'Please rank the following 10 documents returned based on the binary classification: R for Relevent, NR for Nonrelevant'
+        print ''
         for i in range(len(DocumentList)):
-            print DocumentList[i]
-            
+
+            DocumentList[i]["ID"] = str(i)
+            indexer.indexDocument(DocumentList[i])
+
+            print '------------------------------------'
             print ''
-            print 'Relevant or NonRelevant: '
+
+            print'%-15s: %10s' % ("TITLE", DocumentList[i]["Title"])
+            print'%-15s: %10s' % ("DESCRIPTION", DocumentList[i]["Description"])
+            print'%-15s: %10s' % ("URL", DocumentList[i]["Url"])            
+
+            print ''
+            print 'Relevant (R) or Non-Relevant (NR): '
             value = raw_input("Prompt:")
             if value == 'R':
                 DocumentList[i]['IsRelevant'] = 1   #1 is true , 0 is false
@@ -72,16 +88,30 @@ if __name__ == '__main__':
             else:
                 print 'Invalid value entered!'
         
-        precisionAtK = precisionAtK / 10  #final precision@10 per round
+            print ''
+            print ''
+
+        precisionAtK = precisionAtK / 10.0  #final precision@10 per round
         
         print ''
-        print 'Precision@10 is: {}'.format(precisionAtK)
+        print 'Achieved Precision@10 = %f' % precisionAtK
         
         #expand query here by indexing and weighting current document list
         
     
     #precision@10 is > desired , return query and results to user 
-    print DocumentList
+    print 'Achieved desired precision! Here are the results again:'
+    print ''
+    for i in range(len(DocumentList)):
+        print '------------------------------------'
+        print'%-15s: %10s' % ("TITLE", DocumentList[i]["Title"])
+        print'%-15s: %10s' % ("DESCRIPTION", DocumentList[i]["Description"])
+        print'%-15s: %10s' % ("URL", DocumentList[i]["Url"])            
+        relevant = "Relevant"
+        if not DocumentList[i]["IsRelevant"]:
+            relevant = "Non-Relevant"
+        print 'Your marked this as: %s' % relevant
+        print ''
             
         
         
