@@ -17,11 +17,25 @@ ________________________________________________________________________________
 				o Stem (Porter Algorithm) & Eliminate stop words      			
 				o A stream of tokens                     
 			* Hash each token in the hash map
-			* Each entry in the hashmap has "postings list (a list of document IDs that contain this term"
+			* Each entry in the HashMap has "postings list (a list of document IDs that contain this term"
 		3 - Building document vectors for both Relevant and Non-Relevant documents   
 		4 - Build query vector ( 1 - if a term exists in query, 0 - otherwise)
 		5 - Expand Query (Tricky Part)
-                                                                          
+     
+____________________________________________________________________________________		
+Stem at Query-time, then the stemmed token maps to different entries in the index
+
+** Index Construction **
+	o Parse the documents, and extract the words
+		- Generate a list of pairs for each document  (term, docId)
+	o Sort the pairs by the terms (e.g. alphabetical)
+		- Example for small collections, basic sort cannot be in memory
+		- Need some external memory help
+		- Use: BlockMergeIndexConstruction
+	o Distributed Indexing (Using MapReduce)
+		
+
+                                                                     
 ____________________________________________________________________________________		
 
 ##	Components ##
