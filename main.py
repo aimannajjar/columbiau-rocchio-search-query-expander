@@ -116,6 +116,13 @@ if __name__ == '__main__':
         print ''
         indexer.waitForIndexer() # Will block until indexer is done indexing all documents
 
+        
+        #expand query here by indexing and weighting current document list
+        if (precisionAtK == 0):
+            print 'None of the retrieved documents was marked as relevant, could not expand query. Please try a different query'
+            sys.exit()
+
+
         # Print inveretd file
 
         for term in sorted(indexer.invertedFile, key=lambda posting: len(indexer.invertedFile[posting].keys())):
@@ -123,8 +130,7 @@ if __name__ == '__main__':
 
         # print 'Inverted Index Printed'
 
-        
-        #expand query here by indexing and weighting current document list
+
         if (precisionAtK < precisionTenTarg):
             print ''
             print 'Precision is not enough. Expanding query...'
