@@ -80,7 +80,7 @@ class RocchioOptimizeQuery:
                 if documentsList[docId]['IsRelevant']:
                     weights[sterm] = weights[sterm] + constants.BETA * (1.0 / len(relevantDocs)) * idf * relevantDocsTFWeights[sterm]
                 else:
-                    weights[sterm] = weights[sterm] + constants.GAMMA * (1.0 / len(nonrelevantDocs)) * idf * nonrelevantDocsTFWeights[sterm]
+                    weights[sterm] = weights[sterm] - constants.GAMMA * (1.0 / len(nonrelevantDocs)) * idf * nonrelevantDocsTFWeights[sterm]
 
             if term in self.query:
                 self.query[term] = constants.ALPHA * self.query[term] + weights[sterm]   #build new query vector of weights
