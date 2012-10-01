@@ -37,8 +37,8 @@ class Indexer():
 		self.documents_queue.put(document)
 
 
-	def indexerIdle(self):
-		return self.documents_queue.empty()
+	def waitForIndexer(self):
+		self.documents_queue.join()
 
 	def index(self, i, q):
 		while True:
@@ -47,6 +47,8 @@ class Indexer():
 
 			logging.info('Indexer-%s: Indexing document #%s (%s)' % (i, document["ID"], document["Url"]))
 
+			# Create key to hold tf weights
+			document["tfVector"] = { }
 
 			# Retrive Entire document
 			url=document["Url"]
@@ -79,9 +81,11 @@ class Indexer():
 				# Stem Token
 				if (constants.STEM_TOKEN):
 					token = p.stem(token.lower(), 0,len(token)-1)				
+				else:
+					token = token.lower()
 
 				# Is token eligible to indexed?
-				if (token == '' or len(token) <= 1 or is_number(token)):
+				if (token == '' or len(token) <= 1 or len(token) >= 10 or is_number(token)):
 					logging.debug('Indexer-%s: Discarding short or empty token \'%s\'' % (i, token))
 					continue
 
@@ -102,6 +106,11 @@ class Indexer():
 						body_postings.append(j)
 					else:
 						self.invertedFile[token][document["ID"]]["body"] = [j]
+
+					if (token in document["tfVector"]):
+						document["tfVector"][token] = document["tfVector"][token] + 1
+					else:
+						document["tfVector"][token] = 1
 
 
 				j = j + 1

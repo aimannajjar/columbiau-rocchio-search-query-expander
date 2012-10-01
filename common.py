@@ -29,7 +29,7 @@ def is_number(s):
 
 def printWeights(weightsMap,topX=10):
     i = 0
-    for term in sorted(weightsMap, key=weightsMap.get, reverse=True):        
+    for term in sorted(weightsMap, key=weightsMap.get, reverse=True):
         print "%-10s: %10f" % (term, weightsMap[term])
         i = i + 1
         if (topX != 'ALL' and i >= topX):

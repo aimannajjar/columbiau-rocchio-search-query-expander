@@ -16,6 +16,7 @@ import logging
 import indexer
 import rocchio
 import common
+import math
 
 
 #were using pybing wrapper for bing search api
@@ -42,7 +43,7 @@ if __name__ == '__main__':
     #connect to client with key arg[1] and post a query with arg[3], query
 
     bingClient = bingclient.BingClient(constants.BING_ACCT_KEY)
-    indexerWorker = indexer.Indexer()
+    indexer = indexer.Indexer()
     queryOptimizer = rocchio.RocchioOptimizeQuery(arglist[2])
     
     firstPass = 1
@@ -53,7 +54,6 @@ if __name__ == '__main__':
     
     #while precision at 10 is less than desired amt issue a query, obtain new precision metric, expand query, repeat
     while (precisionAtK < precisionTenTarg):
-        relDocCount = 0
         precisionAtK = 0.00 #reset precision each round
         #PROCESS A QUERY
 
@@ -73,10 +73,15 @@ if __name__ == '__main__':
         #to calc precision@10 display documents to user and ask them to categorize as Relevant or Non-Relevant
         print 'Please rank the following 10 documents returned based on the binary classification: R for Relevent, NR for Nonrelevant'
         print ''
+
+        # Reset collections for relevant ad nonrelevant documents
+        relevantDocuments = []
+        nonrelevantDocuments = []
+
         for i in range(len(DocumentList)):
 
-            DocumentList[i]["ID"] = str(i)
-            indexerWorker.indexDocument(DocumentList[i])
+            DocumentList[i]["ID"] = i
+            indexer.indexDocument(DocumentList[i])
 
 
             print '------------------------------------'
@@ -92,10 +97,11 @@ if __name__ == '__main__':
             if value == 'R':
                 DocumentList[i]['IsRelevant'] = 1   #1 is true , 0 is false
                 precisionAtK = precisionAtK + 1
-                relDocCount = relDocCount + 1   
+                relevantDocuments.append(i)
                 
             elif value == 'NR':
                 DocumentList[i]['IsRelevant'] = 0   #1 is true , 0 is false
+                nonrelevantDocuments.append(i)
             else:
                 print 'Invalid value entered!'
         
@@ -105,16 +111,19 @@ if __name__ == '__main__':
         
         print ''
         print 'Precision@10 is: {}'.format(float(precisionAtK))
-        # print ''
-        # if indexerWorker.indexerIdle:
-        #     print indexerWorker.invertedFile
-        # print ''
+        print ''
+        indexer.waitForIndexer() # Will block until indexer is done indexing all documents
+
+        # Print inveretd file
+        for term in sorted(indexer.invertedFile, key=lambda posting: len(indexer.invertedFile[posting].keys())):
+            print "%-30s %-2s:%-3d %-3s:%-10f" % (term, "DF", len(indexer.invertedFile[term]), "IDF", math.log(float(len(DocumentList)) / len(indexer.invertedFile[term].keys()),10))
+
         # print 'Inverted Index Printed'
 
         
         #expand query here by indexing and weighting current document list
         if (precisionAtK < precisionTenTarg):
-            queryWeights = queryOptimizer.Rocchio(indexerWorker.invertedFile, relDocCount)   #optimize new query here 
+            queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments)   #optimize new query here 
         print ''
         
         common.printWeights(queryWeights)
