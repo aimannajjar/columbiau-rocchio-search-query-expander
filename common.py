@@ -11,7 +11,7 @@ class MLStripper(HTMLParser):
 
 def strip_tags(html):
     s = MLStripper()
-    s.feed(html)
+    s.feed(html.decode('UTF-8'))
     return s.get_data()
 
 def is_number(s):
