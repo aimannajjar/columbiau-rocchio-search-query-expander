@@ -7,10 +7,10 @@ Created on Sep 21, 2012
 
 import threading
 import datetime
-import settings
 import re
 import urllib2
 import logging
+import constants
 from PorterStemmer import PorterStemmer
 from common import *
 from Queue import Queue
@@ -26,7 +26,7 @@ class Indexer():
 		self.documents_queue = Queue()
 		self.invertedFile = dict()
 
-		for i in range(settings.NUM_INDEXER_THREADS):
+		for i in range(constants.NUM_INDEXER_THREADS):
 		    worker = Thread(target=self.index, args=(i, self.documents_queue,))
 		    worker.setDaemon(True)
 		    worker.start()		
@@ -64,7 +64,7 @@ class Indexer():
 
 			# Tokenizer 
 			logging.debug('Indexer-%s: Tokenizing document #%s' % (i, document["ID"]))
-			tokens = re.compile(settings.DELIMITERS).split(processed_body)
+			tokens = re.compile(constants.DELIMITERS).split(processed_body)
 			logging.debug('Indexer-%s: Found %d tokens' % (i, len(tokens)))
 			j = 0
 
@@ -77,7 +77,8 @@ class Indexer():
 				logging.debug('Indexer-%s: Stemming token: \'%s\'' % (i, token))
 
 				# Stem Token
-				token = p.stem(token.lower(), 0,len(token)-1)				
+				if (constants.STEM_TOKEN):
+					token = p.stem(token.lower(), 0,len(token)-1)				
 
 				# Is token eligible to indexed?
 				if (token == '' or len(token) <= 1 or is_number(token)):

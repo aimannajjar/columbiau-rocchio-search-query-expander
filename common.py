@@ -1,3 +1,4 @@
+import operator
 from HTMLParser import HTMLParser
 
 class MLStripper(HTMLParser):
@@ -25,3 +26,11 @@ def is_number(s):
         return True
     except ValueError:
         return False
+
+def printWeights(weightsMap,topX=10):
+    i = 0
+    for term in sorted(weightsMap, key=weightsMap.get, reverse=True):        
+        print "%-10s: %10f" % (term, weightsMap[term])
+        i = i + 1
+        if (topX != 'ALL' and i >= topX):
+            break;

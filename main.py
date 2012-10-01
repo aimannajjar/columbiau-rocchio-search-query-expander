@@ -15,8 +15,7 @@ import constants
 import logging
 import indexer
 import rocchio
-
-
+import common
 
 
 #were using pybing wrapper for bing search api
@@ -106,18 +105,19 @@ if __name__ == '__main__':
         
         print ''
         print 'Precision@10 is: {}'.format(float(precisionAtK))
-        print ''
-        if indexerWorker.indexerIdle:
-            print indexerWorker.invertedFile
-        print ''
-        print 'Inverted Index Printed'
+        # print ''
+        # if indexerWorker.indexerIdle:
+        #     print indexerWorker.invertedFile
+        # print ''
+        # print 'Inverted Index Printed'
 
         
         #expand query here by indexing and weighting current document list
         if (precisionAtK < precisionTenTarg):
             queryWeights = queryOptimizer.Rocchio(indexerWorker.invertedFile, relDocCount)   #optimize new query here 
         print ''
-        print 'printings new query weights: {}'.format(queryWeights)   
+        
+        common.printWeights(queryWeights)
 
             
     
