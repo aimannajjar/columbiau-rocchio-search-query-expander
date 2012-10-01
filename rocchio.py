@@ -37,7 +37,7 @@ class RocchioOptimizeQuery:
             sterm = term
             if constants.STEM_IN_ROCCHIO:
                 sterm = p.stem(term.lower(), 0,len(term)-1)            
-            weights[sterm] = 0    #initialize weight vector for each key in inverted file
+            weights[sterm] = 0.0    #initialize weight vector for each key in inverted file
         print ''
 
         relevantDocsTFWeights = {}
