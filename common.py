@@ -11,7 +11,12 @@ class MLStripper(HTMLParser):
 
 def strip_tags(html):
     s = MLStripper()
-    s.feed(html.decode('UTF-8'))
+    try:
+        html = html.decode('UTF-8')
+    except UnicodeDecodeError, e:
+        html = html
+
+    s.feed(html)
     return s.get_data()
 
 def is_number(s):

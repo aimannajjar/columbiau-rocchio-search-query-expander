@@ -11,7 +11,7 @@ import sys
 import bingclient
 import constants
 import parser
-import settings
+import constants
 import logging
 import indexer
 import rocchio
@@ -29,7 +29,6 @@ import rocchio
 if __name__ == '__main__':
 
     logging.basicConfig(level=logging.ERROR)
-    indexer = Indexer()
 
 #create all singleton objects
     arglist = sys.argv 
@@ -43,9 +42,9 @@ if __name__ == '__main__':
     #'eECeOiLBFOie0G3C03YjoHSqb1aMhEfqk8qe7Xi2YMs='
     #connect to client with key arg[1] and post a query with arg[3], query
 
-    bingClient = bingclient.BingClient(settings.BING_ACCT_KEY)
+    bingClient = bingclient.BingClient(constants.BING_ACCT_KEY)
     indexerWorker = indexer.Indexer()
-    queryOptimizer = rocchio.RocchioOptimizeQuery(arglist[3])
+    queryOptimizer = rocchio.RocchioOptimizeQuery(arglist[2])
     
     firstPass = 1
     precisionAtK = 0.00
@@ -78,7 +77,8 @@ if __name__ == '__main__':
         for i in range(len(DocumentList)):
 
             DocumentList[i]["ID"] = str(i)
-            indexer.indexDocument(DocumentList[i])
+            indexerWorker.indexDocument(DocumentList[i])
+
 
             print '------------------------------------'
             print ''
@@ -95,8 +95,6 @@ if __name__ == '__main__':
                 precisionAtK = precisionAtK + 1
                 relDocCount = relDocCount + 1   
                 
-                #index only each Relevant document in document list
-                indexerWorker.indexDocument(DocumentList[i])
             elif value == 'NR':
                 DocumentList[i]['IsRelevant'] = 0   #1 is true , 0 is false
             else:
