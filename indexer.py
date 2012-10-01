@@ -25,6 +25,7 @@ class Indexer():
 		self.ifile_lock = threading.Lock()
 		self.documents_queue = Queue()
 		self.invertedFile = dict()
+		self.termsFrequencies = dict()
 
 		for i in range(constants.NUM_INDEXER_THREADS):
 		    worker = Thread(target=self.index, args=(i, self.documents_queue,))
@@ -53,20 +54,20 @@ class Indexer():
 			# Retrive Entire document
 			url=document["Url"]
 			req = urllib2.Request(url)
-			req.add_header('User-Agent', 'QueryOptimizer') 
+			req.add_header('User-Agent', 'Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101') 
 			response = urllib2.urlopen(req)
 			body = response.read()			
-			document["Body"] = body
+
 			# Strip out HTML
-			processed_body = strip_tags(document["Body"])
-			document["ProcessedBody"] = processed_body
+			document["Body"] = strip_tags(body)
+
 
 			# Terms List
 			terms = []
 
 			# Tokenizer 
 			logging.debug('Indexer-%s: Tokenizing document #%s' % (i, document["ID"]))
-			tokens = re.compile(constants.DELIMITERS).split(processed_body)
+			tokens = re.compile(constants.DELIMITERS).split(document["Body"])
 			logging.debug('Indexer-%s: Found %d tokens' % (i, len(tokens)))
 			j = 0
 
@@ -94,6 +95,12 @@ class Indexer():
 				# Insert into invertedFile
 				with self.ifile_lock:
 					logging.debug('Indexer-%s: Updating postings for token: %s' % (i, token))
+
+					if not token in self.termsFrequencies:
+						self.termsFrequencies[token] = 1
+					else:
+						self.termsFrequencies[token] = self.termsFrequencies[token] + 1
+
 					if not self.invertedFile.has_key(token):
 						self.invertedFile[token] = { }
 

@@ -115,8 +115,9 @@ if __name__ == '__main__':
         indexer.waitForIndexer() # Will block until indexer is done indexing all documents
 
         # Print inveretd file
+
         for term in sorted(indexer.invertedFile, key=lambda posting: len(indexer.invertedFile[posting].keys())):
-            logging.info("%-30s %-2s:%-3d %-3s:%-10f" % (term, "DF", len(indexer.invertedFile[term]), "IDF", math.log(float(len(DocumentList)) / len(indexer.invertedFile[term].keys()),10)))
+            logging.info("%-30s %-2s:%-3d %-2s:%-3d %-3s:%-10f" % (term, "TF", indexer.termsFrequencies[term], "DF", len(indexer.invertedFile[term]), "IDF", math.log(float(len(DocumentList)) / len(indexer.invertedFile[term].keys()),10)))
 
         # print 'Inverted Index Printed'
 
@@ -125,7 +126,7 @@ if __name__ == '__main__':
         if (precisionAtK < precisionTenTarg):
             print ''
             print 'Precision is not enough. Expanding query...'
-            queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments, constants.ROCCHIO_ITERATIONS)   #optimize new query here 
+            queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments)   #optimize new query here 
             
             
             print 'Top Candidates for Query Expansion:'

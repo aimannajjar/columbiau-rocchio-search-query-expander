@@ -20,7 +20,7 @@ class RocchioOptimizeQuery:
         self.query[firstQueryTerm] = 1
      
         
-    def Rocchio(self, invertedFile, documentsList, relevantDocs, nonrelevantDocs, numberOfIterations=1):
+    def Rocchio(self, invertedFile, documentsList, relevantDocs, nonrelevantDocs):
         '''
         output new query vector'
         
@@ -43,7 +43,7 @@ class RocchioOptimizeQuery:
         relevantDocsTFWeights = {}
         nonrelevantDocsTFWeights = {} 
 
-        # Computer relevantDocsTFWeights and nonrelevantDocsTFWeights vectors
+        # Compute relevantDocsTFWeights and nonrelevantDocsTFWeights vectors
         for docId in relevantDocs:
             doc = documentsList[docId]
             for term in doc["tfVector"]:
@@ -77,25 +77,15 @@ class RocchioOptimizeQuery:
                 sterm = p.stem(term.lower(), 0,len(term)-1)
 
             for docId in invertedFile[term].iterkeys():
-                if documentsList[docId]['IsRelevant']:
-                    weights[sterm] = weights[sterm] + constants.BETA * (1.0 / len(relevantDocs)) * idf * relevantDocsTFWeights[sterm]
+                if documentsList[docId]['IsRelevant'] == 1:
+                    weights[sterm] = weights[sterm] + constants.BETA * idf * (relevantDocsTFWeights[sterm] / len(relevantDocs))
                 else:
-                    weights[sterm] = weights[sterm] - constants.GAMMA * (1.0 / len(nonrelevantDocs)) * idf * nonrelevantDocsTFWeights[sterm]
+                    weights[sterm] = weights[sterm] - constants.GAMMA * idf * (nonrelevantDocsTFWeights[sterm]/len(nonrelevantDocs))
 
             if term in self.query:
                 self.query[term] = constants.ALPHA * self.query[term] + weights[sterm]   #build new query vector of weights
             elif weights[sterm] > 0:
                 self.query[term] = weights[sterm]
-                
-        # Perform addtional iterations
-        if numberOfIterations > 1: # we've already performed the first iteration above
-            for i in range(numberOfIterations - 1):
-                for term in self.query:
-                    sterm = term
-                    if constants.STEM_IN_ROCCHIO:
-                        sterm = p.stem(term.lower(), 0,len(term)-1)
-                    self.query[term] = constants.ALPHA * self.query[term] + weights[sterm]
-
 
         return self.query
     

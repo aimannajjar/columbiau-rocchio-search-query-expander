@@ -1,5 +1,8 @@
 import operator
 import constants
+import sys
+import logging
+import re
 from HTMLParser import HTMLParser
 
 class MLStripper(HTMLParser):
@@ -7,13 +10,20 @@ class MLStripper(HTMLParser):
         self.reset()
         self.fed = []
         self.currentTag = ""
+        self.currentAttrs = []
     def handle_starttag(self, tag, attrs):
         self.currentTag = tag
+        self.currentAttrs = attrs
     def handle_endtag(self, tag):
         self.currentTag = ""
+        self.currentAttrs = []
     def handle_data(self, d):
+
         if not self.currentTag in constants.IGNORE_TAGS:
-            self.fed.append(d)
+            res = re.match( r"(.*http.*)", d.lower())
+            if not res:
+                self.fed.append(d)
+        
     def get_data(self):
         return ''.join(self.fed)
 
