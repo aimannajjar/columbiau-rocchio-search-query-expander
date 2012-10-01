@@ -8,3 +8,4 @@ BETA 				= 0.75
 GAMMA				= 0
 ROCCHIO_ITERATIONS	= 2
 STEM_IN_ROCCHIO		= False
+IGNORE_TAGS			= ["style", "script"]

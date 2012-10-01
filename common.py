@@ -1,12 +1,19 @@
 import operator
+import constants
 from HTMLParser import HTMLParser
 
 class MLStripper(HTMLParser):
     def __init__(self):
         self.reset()
         self.fed = []
+        self.currentTag = ""
+    def handle_starttag(self, tag, attrs):
+        self.currentTag = tag
+    def handle_endtag(self, tag):
+        self.currentTag = ""
     def handle_data(self, d):
-        self.fed.append(d)
+        if not self.currentTag in constants.IGNORE_TAGS:
+            self.fed.append(d)
     def get_data(self):
         return ''.join(self.fed)
 
