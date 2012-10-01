@@ -5,4 +5,6 @@ BING_URL			= 'https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?'
 STEM_TOKEN			= False
 ALPHA 				= 1
 BETA 				= 0.75
-GAMMA				= 0.15
+GAMMA				= 0
+ROCCHIO_ITERATIONS	= 2
+STEM_IN_ROCCHIO		= False

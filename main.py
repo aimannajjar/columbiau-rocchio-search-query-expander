@@ -17,7 +17,7 @@ import indexer
 import rocchio
 import common
 import math
-
+import PorterStemmer
 
 #were using pybing wrapper for bing search api
 #from pybing import Bing
@@ -116,20 +116,23 @@ if __name__ == '__main__':
 
         # Print inveretd file
         for term in sorted(indexer.invertedFile, key=lambda posting: len(indexer.invertedFile[posting].keys())):
-            print "%-30s %-2s:%-3d %-3s:%-10f" % (term, "DF", len(indexer.invertedFile[term]), "IDF", math.log(float(len(DocumentList)) / len(indexer.invertedFile[term].keys()),10))
+            logging.info("%-30s %-2s:%-3d %-3s:%-10f" % (term, "DF", len(indexer.invertedFile[term]), "IDF", math.log(float(len(DocumentList)) / len(indexer.invertedFile[term].keys()),10)))
 
         # print 'Inverted Index Printed'
 
         
         #expand query here by indexing and weighting current document list
         if (precisionAtK < precisionTenTarg):
-            queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments)   #optimize new query here 
-        print ''
-        
-        common.printWeights(queryWeights)
-
+            print ''
+            print 'Precision is not enough. Expanding query...'
+            queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments, constants.ROCCHIO_ITERATIONS)   #optimize new query here 
             
-    
+            
+            print 'Top Candidates for Query Expansion:'
+            common.printWeights(queryWeights)
+
+            print ''
+
     #precision@10 is > desired , return query and results to user 
     print 'Achieved desired precision! Here are the results again:'
     print ''
