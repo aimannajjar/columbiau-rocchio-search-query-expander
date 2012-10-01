@@ -44,6 +44,17 @@ def is_number(s):
     except ValueError:
         return False
 
+def getTopTerms(weightsMap,topX=2):
+    i = 0
+    terms = []
+    for term in sorted(weightsMap, key=weightsMap.get, reverse=True):
+        terms.append(term)
+        i = i + 1
+        if (topX != 'ALL' and i >= topX):
+            break;
+
+    return terms
+
 def printWeights(weightsMap,topX=10):
     i = 0
     for term in sorted(weightsMap, key=weightsMap.get, reverse=True):

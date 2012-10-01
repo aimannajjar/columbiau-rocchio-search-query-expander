@@ -48,7 +48,7 @@ if __name__ == '__main__':
     
     firstPass = 1
     precisionAtK = 0.00
-    expandedQuery = '' 
+    expandedQuery = arglist[2] 
     queryWeights = {} 
 
     
@@ -56,6 +56,8 @@ if __name__ == '__main__':
     while (precisionAtK < precisionTenTarg):
         precisionAtK = 0.00 #reset precision each round
         #PROCESS A QUERY
+
+        indexer.clearIndex()
 
         print 'Searching...'
         if firstPass == 1:
@@ -134,6 +136,14 @@ if __name__ == '__main__':
 
             print ''
 
+            newTerms = common.getTopTerms(queryWeights, 2)
+            expandedQuery = expandedQuery + " " + newTerms[0] + " " + newTerms[1]
+            firstPass = 0
+
+            print 'Expanded Query: %s' % expandedQuery
+
+            print ''
+
     #precision@10 is > desired , return query and results to user 
     print 'Achieved desired precision! Here are the results again:'
     print ''
@@ -148,7 +158,7 @@ if __name__ == '__main__':
         print 'Your marked this as: %s' % relevant
         print ''
             
-        
+    print 'Achieved desired precision: {}'.format(precisionAtK)
         
     
   

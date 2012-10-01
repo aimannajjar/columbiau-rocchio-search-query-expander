@@ -41,6 +41,12 @@ class Indexer():
 	def waitForIndexer(self):
 		self.documents_queue.join()
 
+	def clearIndex(self):
+		with self.ifile_lock:
+			self.invertedFile = dict()
+			self.termsFrequencies = dict()
+
+
 	def index(self, i, q):
 		while True:
 			logging.info('Indexer-%s: Waiting for next document' % i)
