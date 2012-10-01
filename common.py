@@ -48,6 +48,8 @@ def getTopTerms(weightsMap,topX=2):
     i = 0
     terms = []
     for term in sorted(weightsMap, key=weightsMap.get, reverse=True):
+        if term in constants.STOP_WORDS_LIST:
+            continue
         terms.append(term)
         i = i + 1
         if (topX != 'ALL' and i >= topX):
@@ -58,6 +60,8 @@ def getTopTerms(weightsMap,topX=2):
 def printWeights(weightsMap,topX=10):
     i = 0
     for term in sorted(weightsMap, key=weightsMap.get, reverse=True):
+        if term in constants.STOP_WORDS_LIST:
+            continue        
         print "%-10s: %10f" % (term, weightsMap[term])
         i = i + 1
         if (topX != 'ALL' and i >= topX):
