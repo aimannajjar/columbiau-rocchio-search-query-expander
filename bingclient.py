@@ -43,6 +43,9 @@ class BingClient:
         headers = {'Authorization': 'Basic ' + accountKeyEnc}
         full_query = constants.BING_URL + url_query
         logging.debug('Sending following URL query: ' + full_query)
+
+        print '%-20s= %s' % ("URL", full_query)
+
         req = urllib2.Request(full_query, headers = headers)
 
         #open url and store response in json file

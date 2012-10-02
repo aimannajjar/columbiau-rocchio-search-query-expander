@@ -57,9 +57,16 @@ if __name__ == '__main__':
         precisionAtK = 0.00 #reset precision each round
         #PROCESS A QUERY
 
+
+        print 'Parameters'
+        print '%-20s= %s' % ("Client key", constants.BING_ACCT_KEY)
+        print '%-20s= %s' % ("Query", expandedQuery)
+        print '%-20s= %s' % ("Target Precision", precisionTenTarg)
+
+
+
         indexer.clearIndex()
 
-        print 'Searching...'
         if firstPass == 1:
             result = bingClient.webQuery(arglist[2])
         else:
@@ -70,11 +77,11 @@ if __name__ == '__main__':
         parsedResult = parser.Parser(jsonResult['d']['results'])
         parsedResult.parser()
         DocumentList = parsedResult.getDocList()
-                
+         
+        print 'Total number of results: %d' % len(DocumentList)
         
         #to calc precision@10 display documents to user and ask them to categorize as Relevant or Non-Relevant
-        print 'Please rank the following 10 documents returned based on the binary classification: R for Relevent, NR for Nonrelevant'
-        print ''
+        print '======================'
 
         # Reset collections for relevant ad nonrelevant documents
         relevantDocuments = []
@@ -86,22 +93,22 @@ if __name__ == '__main__':
             indexer.indexDocument(DocumentList[i])
 
 
-            print '------------------------------------'
-            print ''
+            print 'Result %d' % (i+1)
+            print '['
+            print '  %-9s: %10s' % ("URL", DocumentList[i]["Url"])                        
+            print '  %-9s: %10s' % ("Title", DocumentList[i]["Title"])
+            print '  %-9s: %10s' % ("Summary", DocumentList[i]["Description"])
+            print ']'
 
-            print'%-15s: %10s' % ("TITLE", DocumentList[i]["Title"])
-            print'%-15s: %10s' % ("DESCRIPTION", DocumentList[i]["Description"])
-            print'%-15s: %10s' % ("URL", DocumentList[i]["Url"])            
-
             print ''
-            print 'Relevant (R) or Non-Relevant (NR): '
-            value = raw_input("Prompt:")
-            if value == 'R':
+            sys.stdout.write('Relevant (Y/N)? ')
+            value = raw_input()
+            if value == 'Y':
                 DocumentList[i]['IsRelevant'] = 1   #1 is true , 0 is false
                 precisionAtK = precisionAtK + 1
                 relevantDocuments.append(i)
                 
-            elif value == 'NR':
+            elif value == 'N':
                 DocumentList[i]['IsRelevant'] = 0   #1 is true , 0 is false
                 nonrelevantDocuments.append(i)
             else:
@@ -114,13 +121,16 @@ if __name__ == '__main__':
         print ''
         print 'Precision@10 is: {}'.format(float(precisionAtK))
         print ''
+
+        #expand query here by indexing and weighting current document list
+        if (precisionAtK == 0):
+            print 'Below desired precision, but can no longer augment the query'
+            sys.exit()
+
+        print 'Indexing results...'
         indexer.waitForIndexer() # Will block until indexer is done indexing all documents
 
         
-        #expand query here by indexing and weighting current document list
-        if (precisionAtK == 0):
-            print 'None of the retrieved documents was marked as relevant, could not expand query. Please try a different query'
-            sys.exit()
 
 
         # Print inveretd file
@@ -128,43 +138,25 @@ if __name__ == '__main__':
         for term in sorted(indexer.invertedFile, key=lambda posting: len(indexer.invertedFile[posting].keys())):
             logging.info("%-30s %-2s:%-3d %-2s:%-3d %-3s:%-10f" % (term, "TF", indexer.termsFrequencies[term], "DF", len(indexer.invertedFile[term]), "IDF", math.log(float(len(DocumentList)) / len(indexer.invertedFile[term].keys()),10)))
 
-        # print 'Inverted Index Printed'
+        print '======================'
+        print 'FEEDBACK SUMMARY'
 
 
         if (precisionAtK < precisionTenTarg):
             print ''
-            print 'Precision is not enough. Expanding query...'
+            print 'Still below desired precision of %d' % precisionTenTarg
             queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments)   #optimize new query here 
             
-            
-            print 'Top Candidates for Query Expansion:'
-            common.printWeights(queryWeights)
-
-            print ''
 
             newTerms = common.getTopTerms(queryWeights, 2)
             expandedQuery = expandedQuery + " " + newTerms[0] + " " + newTerms[1]
             firstPass = 0
 
-            print 'Expanded Query: %s' % expandedQuery
+            print 'Augmenting by %s %s' % (newTerms[0], newTerms[1])
 
-            print ''
 
     #precision@10 is > desired , return query and results to user 
-    print 'Achieved desired precision! Here are the results again:'
-    print ''
-    for i in range(len(DocumentList)):
-        print '------------------------------------'
-        print'%-15s: %10s' % ("TITLE", DocumentList[i]["Title"])
-        print'%-15s: %10s' % ("DESCRIPTION", DocumentList[i]["Description"])
-        print'%-15s: %10s' % ("URL", DocumentList[i]["Url"])            
-        relevant = "Relevant"
-        if not DocumentList[i]["IsRelevant"]:
-            relevant = "Non-Relevant"
-        print 'Your marked this as: %s' % relevant
-        print ''
-            
-    print 'Achieved desired precision: {}'.format(precisionAtK)
+    print 'Desired precision reached, done'
         
     
   
