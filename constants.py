@@ -8,7 +8,7 @@ BETA 				= 1.0
 GAMMA				= 1.0
 STEM_IN_ROCCHIO		= False
 IGNORE_TAGS			= ["style", "script"]
-STOP_WORDS_LIST		= { "about" : True,
+QUERY_SKIP_TERMS	= { "about" : True,
 "above" : True,
 "after" : True,
 "again" : True,

@@ -4,6 +4,7 @@ import sys
 import logging
 import re
 from HTMLParser import HTMLParser
+from PorterStemmer import PorterStemmer
 
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -44,13 +45,22 @@ def is_number(s):
     except ValueError:
         return False
 
-def getTopTerms(weightsMap,topX=2):
+def getTopTerms(currentQuery, weightsMap,topX=2):
+
+    p = PorterStemmer()
+    current_terms = []
+    for term in currentQuery.split():
+        term = p.stem(term.lower(), 0,len(term)-1)
+        current_terms.append(term)
+        
+
     i = 0
     terms = []
     for term in sorted(weightsMap, key=weightsMap.get, reverse=True):
-        if term in constants.STOP_WORDS_LIST:
+        if term in constants.QUERY_SKIP_TERMS or p.stem(term.lower(), 0,len(term)-1) in current_terms:
             continue
         terms.append(term)
+        current_terms.append(p.stem(term.lower(), 0,len(term)-1))
         i = i + 1
         if (topX != 'ALL' and i >= topX):
             break;

@@ -61,11 +61,14 @@ class Indexer():
 			url=document["Url"]
 			req = urllib2.Request(url)
 			req.add_header('User-Agent', 'Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101') 
-			response = urllib2.urlopen(req)
-			body = response.read()			
 
-			# Strip out HTML
-			document["Body"] = strip_tags(body)
+			try:
+				response = urllib2.urlopen(req)
+				body = response.read()
+				# Strip out HTML
+				document["Body"] = strip_tags(body)				
+			except Exception, e:
+				document["Body"] = document["Description"]
 
 
 			# Terms List

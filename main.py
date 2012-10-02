@@ -148,7 +148,7 @@ if __name__ == '__main__':
             queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments)   #optimize new query here 
             
 
-            newTerms = common.getTopTerms(queryWeights, 2)
+            newTerms = common.getTopTerms(expandedQuery, queryWeights, 2)
             expandedQuery = expandedQuery + " " + newTerms[0] + " " + newTerms[1]
             firstPass = 0
 
