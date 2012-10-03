@@ -20,7 +20,7 @@ QUERY_SKIP_TERMS		: A list of terms that should not be considered in the expande
 
 NUM_INDEXER_THREADS	=	2 
 DELIMITERS 			= '[\s.,=?!:@<>()\"-;\'&_\\{\\}\\|\\[\\]\\\\]+' # DELIMITERS 			= '\W+'
-BING_ACCT_KEY		= "gIz+khjqVUmq1bRIIB+Pv+r4U4ix6rtjqUkq3AYm6rM="
+BING_ACCT_KEY		= "PASTE_YOUR_BING_ACCOUNT_KEY_HERE"
 BING_URL			= 'https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?'
 STEM_TOKEN			= False
 ALPHA 				= 0

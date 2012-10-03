@@ -15,6 +15,8 @@
 1 . Installation & Usage:
 --------------------------
 Unpack archive and from the command line in a Linux machine run using Python 2.7.3+
+Modify constants and set your BING Account Key
+
 python main.py <precision> <query>
 e.g. python main.py .90 'gates'
 
@@ -42,7 +44,7 @@ README.txt
 http://www.tartarus.org/~martin/PorterStemmer
 We do not use this stemmer in default settings (see constants.py)
 
-We have also used a code snippet from StackOverflow that parses HTML tags of an HTML document, but we've highly modified the snippet to suit our needs (see common.py)
+- We have also used a code snippet from StackOverflow that parses HTML tags of an HTML document, but we've highly modified the snippet to suit our needs (see common.py)
 
 
 
@@ -53,21 +55,21 @@ We have also used a code snippet from StackOverflow that parses HTML tags of an 
 
 * Initialization (bing client, ...etc) //Initialize singletons here
 * For each round:                
-	0 - Prompt user for input
-	1 - Use Bing API to retrieve top-10              
-	2 - Present results to user and compute P = Precision @ 10
-	3 - While P < TARGET_VALUE:
+	0- Prompt user for input
+	1- Use Bing API to retrieve top-10              
+	2- Present results to user and compute P = Precision @ 10
+	3- While P < TARGET_VALUE:
 			( More details of following steps can be found in the heading comments section of indexer.py file)
-		1 - Crawl in each individual URL
-		2 - We index the contents of all documents (Create the Inverted File)
+		1- Crawl in each individual URL
+		2- We index the contents of all documents (Create the Inverted File)
 			* Preprocessing:
 				o Tokenize and eliminate useless terms (numbers and tokens of length 1)
 			* Insert into invertedFile
 			* Increment term frequency of this term in this document's vector representation
 
 			( More details of following steps can be found in the heading comments section of rocchio.py file)
-		4 - Build query vector (INITIALLY: 1 - if a term exists in query, 0 - otherwise)
-		5 - Expand Query: Take 2 highest weighted non-stop word terms that are not part of current query using ROCCHIO ALGORITHM.
+		4- Build query vector (INITIALLY: 1 - if a term exists in query, 0 - otherwise)
+		5- Expand Query: Take 2 highest weighted non-stop word terms that are not part of current query using ROCCHIO ALGORITHM.
 
 
 
@@ -146,7 +148,4 @@ equal to 1.0 and alpha given 0. Our reasoning for setting alpha to 0 is that we 
 at which 'relevant' terms distinguish from 'non-relevant' terms as evidenced by the absolute value of their difference in weights. To the 
 extent that the user feedback accurately reflects the intended results of the query, we move the query vector more rapidly towards the 
 centroid of relevant results. 
-
-
-BING KEY: 'eECeOiLBFOie0G3C03YjoHSqb1aMhEfqk8qe7Xi2YMs='
 
