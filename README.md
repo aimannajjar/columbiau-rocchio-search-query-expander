@@ -55,7 +55,7 @@ We do not use this stemmer in default settings (see constants.py)
 
 * Initialization (bing client, ...etc) //Initialize singletons here
 * For each round:                
-	0. Prompt user for input
+	1. Prompt user for input
 	1. Use Bing API to retrieve top-10              
 	2. Present results to user and compute P = Precision @ 10
 	3. While P < TARGET_VALUE:
@@ -136,7 +136,7 @@ the URL's indicated by each result from Bing's API, stripped html tags using com
 the URL's as well in order to obtain a more robust signal from each result than was presented by the Title/Summary alone. After the indexing phase completes per round, we apply the Rocchio algorithm using proprietary weights found in constants.py for alpha,beta,gamma optimized by
 user tests to move the query vector towards the centroid of the desired result vector in the most expedient manner. 
 
-You'll notice that we are placing higher prioity for efficient and quick processing rather than efficient memory usage, our argument is that given the interactive nature of this application, quicker indexing (e.g. background concurrent threads) and quick access to terms weights (using ash maps with keys rather than arrays with common ordering of terms) is more important than memory usage, furthermore, since the collection of documents (10) is small and the vocabulary for the collection is not relatively small, this should not result in exteremly high usage of memory, that being said however, the application may not scale very well when attempting to work with much larger collections
+You'll notice that we are placing higher prioity for efficient and quick processing rather than efficient memory usage, our argument is that given the interactive nature of this application, quicker indexing (e.g. background concurrent threads) and quick access to terms weights (using hash maps with keys rather than arrays with common ordering of terms) is more important than efficient memory usage, furthermore, since the collection of documents (10) is small and the vocabulary for the collection is relatively small, this should not result in exteremly high usage of memory, that being said however, the application may not scale very well when attempting to work with much larger collections
 
 
 Query-Modification method:
