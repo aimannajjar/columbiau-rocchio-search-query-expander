@@ -26,17 +26,16 @@ Various settings can be easily changed to experiment with results in constants.p
 
 2 . Package Contents:
 --------------------------
-__init__.py
-common.py
-constants.py
-indexer.py
-bingclient.py
-main.py
-parser.py
-PorterStemmer.py
-rocchio.py
-transcript.txt
-README.txt
+- \_\_init\_\_.py
+- common.py
+- constants.py
+- indexer.py
+- bingclient.py
+- main.py
+- parser.py
+- PorterStemmer.py
+- rocchio.py
+- transcript.txt (Sample Output)
 
 3. Disclosures:
 --------------------------
@@ -53,11 +52,11 @@ We do not use this stemmer in default settings (see constants.py)
 
 ##	Algorithm: ##
 
+
 * Initialization (bing client, ...etc) //Initialize singletons here
 * For each round:                
 	0. Prompt user for input
 	1. Use Bing API to retrieve top-10              
-
 	2. Present results to user and compute P = Precision @ 10
 	3. While P < TARGET_VALUE:
 			( More details of following steps can be found in the heading comments section of indexer.py file)
@@ -105,7 +104,7 @@ We do not use this stemmer in default settings (see constants.py)
 
 
 
-# DocumentsList Structure # List of python dictionaries
+# DocumentsList Structure 
    
 	[
 		{   "ID" : 0,
