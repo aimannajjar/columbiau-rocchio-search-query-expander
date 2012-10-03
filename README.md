@@ -49,21 +49,21 @@ We do not use this stemmer in default settings (see constants.py)
 ##	Algorithm: ##
 
 
-* Initialization (bing client, ...etc) //Initialize singletons here
-* For each round:                
-	1. Prompt user for input
-	1. Use Bing API to retrieve top-10              
-	2. Present results to user and compute P = Precision @ 10
-	3. While P < TARGET_VALUE:
-			( More details of following steps can be found in the heading comments section of indexer.py file)
-		* Crawl in each individual URL
-		* We index the contents of all documents (Create the Inverted File)
-			- Preprocessing:  Tokenize and eliminate useless terms (numbers and tokens of length 1)
-			- Insert into invertedFile
-			- Increment term frequency of this term in this document's vector representation
-			( More details of following steps can be found in the heading comments section of rocchio.py file)
-		* Build query vector (INITIALLY: 1 - if a term exists in query, 0 - otherwise)
-		* Expand Query: Take 2 highest weighted non-stop word terms that are not part of current query using ROCCHIO ALGORITHM.
+	* Initialization (bing client, ...etc) //Initialize singletons here
+	* For each round:                
+		1. Prompt user for input
+		1. Use Bing API to retrieve top-10              
+		2. Present results to user and compute P = Precision @ 10
+		3. While P < TARGET_VALUE:
+				( More details of following steps can be found in the heading comments section of indexer.py file)
+			* Crawl in each individual URL
+			* We index the contents of all documents (Create the Inverted File)
+				- Preprocessing:  Tokenize and eliminate useless terms (numbers and tokens of length 1)
+				- Insert into invertedFile
+				- Increment term frequency of this term in this document's vector representation
+				( More details of following steps can be found in the heading comments section of rocchio.py file)
+			* Build query vector (INITIALLY: 1 - if a term exists in query, 0 - otherwise)
+			* Expand Query: Take 2 highest weighted non-stop word terms that are not part of current query using ROCCHIO ALGORITHM.
 
 
 
@@ -117,7 +117,7 @@ We do not use this stemmer in default settings (see constants.py)
 		.
 		.		
 		other documents
-   ]                               
+	]                               
 
 5. Algorithm & Design Explanation
 ---------------------------------------
