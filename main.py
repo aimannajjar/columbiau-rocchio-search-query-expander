@@ -4,6 +4,9 @@ Created on Sep 21, 2012
 @author: johnterzis
 
 arguments: <precision> <query>
+
+Contains the main loop of the application 
+
 '''
 
 import json
@@ -18,10 +21,6 @@ import rocchio
 import common
 import math
 import PorterStemmer
-
-#were using pybing wrapper for bing search api
-#from pybing import Bing
-
 
 
 #only if run as standalone script (not imported module) does, __name__  attribute defaults to __main__
@@ -144,7 +143,7 @@ if __name__ == '__main__':
 
         if (precisionAtK < precisionTenTarg):
             print ''
-            print 'Still below desired precision of %d' % precisionTenTarg
+            print 'Still below desired precision of %f' % precisionTenTarg
             queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments)   #optimize new query here 
             
 

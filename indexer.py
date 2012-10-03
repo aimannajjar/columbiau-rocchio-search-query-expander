@@ -3,6 +3,51 @@ Created on Sep 21, 2012
 
 @author: aiman.najjar
 
+This class is resposible for indexing the documents and it performs the following steps:
+	1. Retrieves the body content of the document, if the HTTP request fails, the body summary returned in Bing API is used
+	2. Tokenize the document text based on constants.DELIMITERS regular expression
+	3. OPTIONAL: Stem token (default is False, setting can be changed in constants.py)
+	4. Throw away out terms that are likely to be useless (e.g. length is 1 or numerical only)
+	5. Insert into invertedFile
+	6. In the same pass, we compute term frequencies for each term in d and store the weight in document["tfVector"][term], this is useful later for Rocchio
+
+Note that this indexer is setup to work concurrently and dynamically build the index as opposed to index the document collections at once.
+To index a document, the document object should be enqueued in documents_queue and one of the worker threads will be pick it up to process it
+Therefore, a mutex lock was necessary while accessing invertedFile to ensure dictionary consistency
+
+Here is the invertedFile structure:
+
+	invertedFile =
+	{
+
+		"Term 1" : {
+			"DocID 1" : 
+			{
+				"body": [0,3,4,2,1] # List of positions
+				.
+				.
+				other zones (currently only indexing body)
+			}
+			
+			.
+			.
+			.
+			other documents 
+
+		}
+
+		.
+		.
+		.
+		.
+		other terms
+
+	}
+
+
+You will notice our liberal usage of hash maps which are convenient for quick access but consume larger memory, we explain our design choice in the README file
+
+
 '''
 
 import threading
@@ -60,7 +105,7 @@ class Indexer():
 			# Retrive Entire document
 			url=document["Url"]
 			req = urllib2.Request(url)
-			req.add_header('User-Agent', 'Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101') 
+			req.add_header('User-Agent', 'QueryOptimizer') 
 
 			try:
 				response = urllib2.urlopen(req)
@@ -85,11 +130,9 @@ class Indexer():
 			p = PorterStemmer()
 			for token in tokens:
 
-				
-				logging.debug('Indexer-%s: Stemming token: \'%s\'' % (i, token))
-
 				# Stem Token
 				if (constants.STEM_TOKEN):
+					logging.debug('Indexer-%s: Stemming token: \'%s\'' % (i, token))
 					token = p.stem(token.lower(), 0,len(token)-1)				
 				else:
 					token = token.lower()

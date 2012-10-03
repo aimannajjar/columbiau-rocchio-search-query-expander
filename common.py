@@ -1,3 +1,11 @@
+'''
+
+@author: aiman.najjar
+
+Functions that are commonly used across the project
+
+'''
+
 import operator
 import constants
 import sys
@@ -5,6 +13,14 @@ import logging
 import re
 from HTMLParser import HTMLParser
 from PorterStemmer import PorterStemmer
+
+
+'''
+MLStripper:
+ An implementation of the HTMLParser class that returns only useful terms and discard other markup
+ Initial skeleton of this implementation was obtained from the following StackOverflow page but was modified as per our needs:
+ http://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
+'''
 
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -28,6 +44,7 @@ class MLStripper(HTMLParser):
     def get_data(self):
         return ''.join(self.fed)
 
+# Convinent function to quickly invoke our special HTML parser
 def strip_tags(html):
     s = MLStripper()
     try:
@@ -45,13 +62,21 @@ def is_number(s):
     except ValueError:
         return False
 
+
+
+'''
+getTopTerms:
+    Given the current query and the new query vector, return the highest scoring terms (default 2 terms)
+    The current query is used to ensure that returned terms are actually new
+'''
+
 def getTopTerms(currentQuery, weightsMap,topX=2):
 
     p = PorterStemmer()
     current_terms = []
-    for term in currentQuery.split():
-        term = p.stem(term.lower(), 0,len(term)-1)
-        current_terms.append(term)
+    # for term in currentQuery.split():
+    #     term = p.stem(term.lower(), 0,len(term)-1)
+    #     current_terms.append(term)
         
 
     i = 0
@@ -67,6 +92,12 @@ def getTopTerms(currentQuery, weightsMap,topX=2):
 
     return terms
 
+
+'''
+printWeights:
+    Given the new query vector, print out the highest scoring terms (default 10 terms)
+    Used for debugging purposes only
+'''
 def printWeights(weightsMap,topX=10):
     i = 0
     for term in sorted(weightsMap, key=weightsMap.get, reverse=True):
@@ -76,3 +107,5 @@ def printWeights(weightsMap,topX=10):
         i = i + 1
         if (topX != 'ALL' and i >= topX):
             break;
+
+

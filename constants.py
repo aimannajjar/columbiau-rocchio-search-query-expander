@@ -1,9 +1,29 @@
-NUM_INDEXER_THREADS	=	2
+'''
+
+@author: aiman.najjar
+
+Constants and Setting Variables.
+
+NUM_INDEXER_THREADS		: How many indexer worker threads should work concurrently	
+DELIMITERS 				: RegEx experession to separate (tokenize) words based on
+BING_ACCT_KEY			: Bing Account Key required to invoke Bing API
+BING_URL				: Prefix to Bing Query API URL
+STEM_TOKEN				: Flag indicates whether tokens should be stemmed in the invertedFile or not (useful to experiment around)
+ALPHA 					: Weight for previous query vector terms used while computing the expanded query vector (first term in Rocchio Alg.)
+BETA 					: Weight for relevant document vector terms used while computing the expanded query vector (second term in Rocchio Alg.)
+GAMMA					: Weight for non-relevant document vector terms used while computing the expanded query vector (second term in Rocchio Alg.)
+STEM_IN_ROCCHIO			: Flag indicates whether terms should be stemmed before computing summation of their weights for Rocchio formula 
+IGNORE_TAGS				: A list of HTML tags in which its content must be ignored (e.g. tags that contain only css or javascript code)
+QUERY_SKIP_TERMS		: A list of terms that should not be considered in the expanded query even with high scores (e.g. stop words)
+'''
+
+
+NUM_INDEXER_THREADS	=	2 
 DELIMITERS 			= '[\s.,=?!:@<>()\"-;\'&_\\{\\}\\|\\[\\]\\\\]+' # DELIMITERS 			= '\W+'
 BING_ACCT_KEY		= "gIz+khjqVUmq1bRIIB+Pv+r4U4ix6rtjqUkq3AYm6rM="
 BING_URL			= 'https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?'
 STEM_TOKEN			= False
-ALPHA 				= 1.0
+ALPHA 				= 0
 BETA 				= 1.0
 GAMMA				= 1.0
 STEM_IN_ROCCHIO		= False

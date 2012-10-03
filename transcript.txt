@@ -1,0 +1,593 @@
+python main.py .90 'gates'
+
+QUERY 1 TRANSCRIPT 'GATES':
+
+--------------------------------------------------------------------------------------------------------------------
+Desired precision@10: .90
+Parameters
+Client key          = gIz+khjqVUmq1bRIIB+Pv+r4U4ix6rtjqUkq3AYm6rM=
+Query               = gates
+Target Precision    = 0.9
+URL                 = https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?Query=%27gates%27&$top=10&$format=JSON
+Total number of results: 10
+======================
+Result 1
+[
+  URL      : http://gates.com/
+  Title    : Gates Corporation
+  Summary  : Gates Corporation is Powering Progress™ in the Oil & Gas, Energy, Mining, Marine, Agriculture, Transportation and Automotive Industries.
+]
+
+Relevant (Y/N)? N
+Result 2
+[
+  URL      : http://www.gates.com/?location_id=542
+  Title    : Gates Snowmobile & ATV - Powering Progress™ in belts, hose ...
+  Summary  : Gates Corporation is Powering Progress™ in the Oil & Gas, Energy, Mining, Marine, Agriculture, Transportation and Automotive Industries.
+]
+
+Relevant (Y/N)? N
+Result 3
+[
+  URL      : http://en.wikipedia.org/wiki/Bill_Gates
+  Title    : Bill Gates - Wikipedia, the free encyclopedia
+  Summary  : William Henry "Bill" Gates III (born October 28, 1955) is an American business magnate and philanthropist. Gates is the former chief executive and current ...
+]
+
+Relevant (Y/N)? Y
+Result 4
+[
+  URL      : http://news.yahoo.com/gates-windows-8-system-very-exciting-161811335--finance.html
+  Title    : Gates: New Windows 8 system is 'very exciting' - Yahoo! News
+  Summary  : NEW YORK (AP) — Microsoft founder Bill Gates on Thursday called the new Windows 8 operating system scheduled for release next month "a very exciting new product ...
+]
+
+Relevant (Y/N)? Y
+Result 5
+[
+  URL      : http://en.wikipedia.org/wiki/Robert_Gates
+  Title    : Robert Gates - Wikipedia, the free encyclopedia
+  Summary  : Robert Michael Gates (born September 25, 1943) is a retired civil servant and university president who served as the 22nd United States Secretary of Defense from 2006 ...
+]
+
+Relevant (Y/N)? N
+Result 6
+[
+  URL      : http://www.gatesbbq.com/
+  Title    : Gates Bar B.Q.
+  Summary  : Offers BBQ ribs and other meats. Recipes, online sales of BBQ sauces and spices, and a history of the chain. Locations in Kansas and Missouri, United States.
+]
+
+Relevant (Y/N)? N
+Result 7
+[
+  URL      : http://www.gatesinc.com/
+  Title    : GATES, Florida construction, development, brokerage, leasing ...
+  Summary  : Gates, Inc. - Providing South Florida construction, development, brokerage, leasing, and property management services.
+]
+
+Relevant (Y/N)? N
+Result 8
+[
+  URL      : http://www.gatesfoundation.org/
+  Title    : Bill & Melinda Gates Foundation
+  Summary  : Global Luminaries Issue Urgent Call for Polio-Free World Read Bill Gates' speech at the UN Event
+]
+
+Relevant (Y/N)? Y
+Result 9
+[
+  URL      : http://www.microsoft.com/en-us/news/exec/billg/
+  Title    : Bill Gates: Chairman - Microsoft Corporation: Software ...
+  Summary  : Updated: Aug. 3, 2011. William (Bill) H. Gates is chairman of Microsoft Corporation, the worldwide leader in software, services and solutions that help ...
+]
+
+Relevant (Y/N)? Y
+Result 10
+[
+  URL      : http://money.cnn.com/2012/09/27/pf/college/gates-college-apps/index.html
+  Title    : Gates Foundation awarding up to $100,000 grants for college apps ...
+  Summary  : NEW YORK (CNNMoney) -- The Bill and Melinda Gates Foundation is launching a competition today that will award up to 30 grants of $50,000 to $100,000 to ...
+]
+
+Relevant (Y/N)? Y
+
+Precision@10 is: 0.5
+
+Indexing results...
+======================
+FEEDBACK SUMMARY
+
+Still below desired precision of 0.900000
+
+Augmenting by microsoft bill
+Parameters
+Client key          = gIz+khjqVUmq1bRIIB+Pv+r4U4ix6rtjqUkq3AYm6rM=
+Query               = gates microsoft bill
+Target Precision    = 0.9
+URL                 = https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?Query=%27gates+microsoft+bill%27&$top=10&$format=JSON
+Total number of results: 10
+======================
+Result 1
+[
+  URL      : http://www.microsoft.com/en-us/news/exec/billg/
+  Title    : Bill Gates: Chairman - Microsoft Corporation: Software ...
+  Summary  : Updated: Aug. 3, 2011. William (Bill) H. Gates is chairman of Microsoft Corporation, the worldwide leader in software, services and solutions that help ...
+]
+
+Relevant (Y/N)? Y
+Result 2
+[
+  URL      : http://en.wikipedia.org/wiki/Bill_Gates_(Microsoft)
+  Title    : Bill Gates - Wikipedia, the free encyclopedia
+  Summary  : William Henry "Bill" Gates III (born October 28, 1955) is an American business magnate and philanthropist. Gates is the former chief executive and current chairman of ...
+]
+
+Relevant (Y/N)? Y
+Result 3
+[
+  URL      : http://www.biography.com/people/bill-gates-9307520
+  Title    : Bill Gates Biography - Facts, Birthday, Life Story - Biography.com
+  Summary  : Biography.com tracks Bill Gates from his early interest in computer programming to his place as the founder of Microsoft, the world's largest software business.
+]
+
+Relevant (Y/N)? Y
+Result 4
+[
+  URL      : http://www.therepublic.com/view/story/b1bcf98f63e0498a8c74748f7b2e7fc7/US--Microsoft-Windows
+  Title    : Bill Gates says new Windows 8 operating system 'very exciting' and ...
+  Summary  : NEW YORK - Microsoft founder Bill Gates on Thursday called the new Windows 8 operating system scheduled for release next month "a very exciting new product" and "a ...
+]
+
+Relevant (Y/N)? Y
+Result 5
+[
+  URL      : http://planetprose.com/1621/how-bill-gates-started-microsoft/
+  Title    : How Bill Gates Started Microsoft | Planetprose
+  Summary  : Is everything you've heard about bill gates Microsoft story the real deal? Maybe you won't think so by the time you are done reading this article.
+]
+
+Relevant (Y/N)? Y
+Result 6
+[
+  URL      : http://www.forbes.com/profile/bill-gates/
+  Title    : Bill Gates - Forbes - Information for the World's Business Leaders ...
+  Summary  : At a Glance. Co-Chair, Bill & Melinda Gates Foundation; Age: 56; Source of Wealth: Microsoft, Self-made
+]
+
+Relevant (Y/N)? Y
+Result 7
+[
+  URL      : http://inventors.about.com/od/gstartinventors/a/Bill_Gates.htm
+  Title    : Bill Gates - Biography and History of the Microsoft Chairman
+  Summary  : A biography of Bill Gates - the founder of Microsoft. ... Bill Gates - Biography and History Bill Gates was the founder and first chairmen of Microsoft.
+]
+
+Relevant (Y/N)? Y
+Result 8
+[
+  URL      : http://www.entrepreneur.com/article/197526
+  Title    : Bill Gates | Entrepreneur.com - Business News & Strategy For ...
+  Summary  : Bill Gates Co-founder of Microsoft Corp. Founded: 1975 "Ultimately, the PC will be a window to everything people are interested in-and everything we need to know."-
+]
+
+Relevant (Y/N)? Y
+Result 9
+[
+  URL      : http://www.woopidoo.com/biography/bill-gates.htm
+  Title    : Bill Gates Biography - Woopidoo Business Success - Motivational ...
+  Summary  : Bill Gates biography, business quotes by Gates and a brief history of the Microsoft Company.
+]
+
+Relevant (Y/N)? Y
+Result 10
+[
+  URL      : http://www.cio-today.com/news/Gates--Windows-8-Is--Very-Exciting-/story.xhtml?story_id=003000D91ODI
+  Title    : Gates: New Windows 8 System Is 'Very Exciting' | CIO Today
+  Summary  : Microsoft founder Bill Gates is calling the new Windows 8 operating system, scheduled for release Oct. 26, "a very big deal." It will be the biggest overhaul of ...
+]
+
+Relevant (Y/N)? Y
+
+Precision@10 is: 1.0
+
+Indexing results...
+======================
+FEEDBACK SUMMARY
+Desired precision reached, done
+
+--------------------------------------------------------------------------------------------------------------------
+QUERY 2 TRANSCRIPT 'snow leopard':
+--------------------------------------------------------------------------------------------------------------------
+$ python main.py .90 'snow leopard'
+
+Desired precision@10: .90
+Parameters
+Client key          = gIz+khjqVUmq1bRIIB+Pv+r4U4ix6rtjqUkq3AYm6rM=
+Query               = snow leopard
+Target Precision    = 0.90
+URL                 = https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?Query=%27snow+leopard%27&$top=10&$format=JSON
+Total number of results: 10
+======================
+Result 1
+[
+  URL      : http://en.wikipedia.org/wiki/Uncia_(genus)
+  Title    : Snow leopard - Wikipedia, the free encyclopedia
+  Summary  : The snow leopard (Panthera uncia or Uncia uncia) is a moderately large cat native to the mountain ranges of Central Asia. The classification of this species has been ...
+]
+
+Relevant (Y/N)? N
+Result 2
+[
+  URL      : http://www.apple.com/osx/
+  Title    : Apple - OS X Mountain Lion - Move your Mac even further ahead.
+  Summary  : OS X Mountain Lion makes the Mac even better. And with so many new features, now the Mac works even better with iPhone, iPad, and iPod touch.
+]
+
+Relevant (Y/N)? Y
+Result 3
+[
+  URL      : http://www.cio.com.au/books/product/mac-os-x-snow-leopard-digital-classroom/0470525681/
+  Title    : Mac OS X Snow Leopard Digital Classroom - Books - CIO
+  Summary  : Information Technology strategy insight for senior IT management - resources to understand and leverage information technology.
+]
+
+Relevant (Y/N)? Y
+Result 4
+[
+  URL      : http://animals.nationalgeographic.com/animals/mammals/snow-leopard/
+  Title    : Snow Leopards, Snow Leopard Pictures, Snow Leopard Facts ...
+  Summary  : Native to the Central Asian mountains, the snow leopard is a rare sight, with only about 6,000 left in the wild. They are hunted for their beautiful, warm fur and for ...
+]
+
+Relevant (Y/N)? N
+Result 5
+[
+  URL      : http://www.amazon.com/s?ie=UTF8&keywords=snow%20leopard&page=1&rh=n%3A1036592%2Ck%3Asnow%20leopard
+  Title    : Amazon.com: snow leopard - Clothing & Accessories
+  Summary  : Outer Rebel Fashion Deluxe Animal Hats with Attached Scarf & Mittens- Snow Leopard
+]
+
+Relevant (Y/N)? N
+Result 6
+[
+  URL      : http://www.snowleopard.org/
+  Title    : Snow Leopard Trust | Saving Snow Leopards
+  Summary  : Located in Seattle, they work to protect the endangered snow leopard and its Central Asian habitat.
+]
+
+Relevant (Y/N)? N
+Result 7
+[
+  URL      : http://en.wikipedia.org/wiki/Mac_OS_X_Snow_Leopard
+  Title    : Mac OS X Snow Leopard - Wikipedia, the free encyclopedia
+  Summary  : Mac OS X Snow Leopard (version 10.6) is the seventh major release of Mac OS X, Apple's desktop and server operating system for Macintosh computers. Snow Leopard was ...
+]
+
+Relevant (Y/N)? Y
+Result 8
+[
+  URL      : http://www.amazon.com/s?ie=UTF8&page=1&rh=i%3Aaps%2Ck%3Asnow%20leopard
+  Title    : Amazon.com: snow leopard
+  Summary  : Office Mac Home and Student 2011 - Family Pack (1 User/3 Installs) [Download] by Microsoft (Software Download - Oct. 26, 2010) - Mac OS X 10.5 Leopard / 10.6 Snow ...
+]
+
+Relevant (Y/N)? Y
+Result 9
+[
+  URL      : http://www.ebay.com/sch/i.html?_nkw=snow+leopard
+  Title    : snow leopard | eBay - Electronics, Cars, Fashion, Collectibles ...
+  Summary  : Find snow leopard from a vast selection of Operating Systems. Shop eBay!
+]
+
+Relevant (Y/N)? Y
+Result 10
+[
+  URL      : http://www.downloadkeeper.com/mac-os-x-snow-leopard-10.6.0-crack-serial-download.html
+  Title    : Mac Os X Snow Leopard 10.6.0 Crack Serial Download Full Version
+  Summary  : Found 56 results for Mac Os X Snow Leopard 10.6.0. Full version downloads available, all hosted on high speed servers!
+]
+
+Relevant (Y/N)? Y
+
+Precision@10 is: 0.6
+
+Indexing results...
+======================
+FEEDBACK SUMMARY
+
+Still below desired precision of 0.900000 
+
+Augmenting by mac os
+Parameters
+Client key          = gIz+khjqVUmq1bRIIB+Pv+r4U4ix6rtjqUkq3AYm6rM=
+Query               = snow leopard mac os
+Target Precision    = 0.90
+URL                 = https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?Query=%27snow+leopard+mac+os%27&$top=10&$format=JSON
+Total number of results: 10
+======================
+Result 1
+[
+  URL      : http://www.apple.com/support/snowleopard/
+  Title    : Apple - Support - Snow Leopard
+  Summary  : Welcome to Snow Leopard Support. Choose a topic from the left to ... Extend coverage for your Mac to three years of service ... the new features and find out how to upgrade to OS X ...
+]
+
+Relevant (Y/N)? Y
+Result 2
+[
+  URL      : http://en.wikipedia.org/wiki/Mac_OS_X_Snow_Leopard
+  Title    : Mac OS X Snow Leopard - Wikipedia, the free encyclopedia
+  Summary  : Mac OS X Snow Leopard (version 10.6) is the seventh major release of Mac OS X, Apple's desktop and server operating system for Macintosh computers. Snow Leopard was ...
+]
+
+Relevant (Y/N)? Y
+Result 3
+[
+  URL      : http://www.apple.com/osx/
+  Title    : Apple - OS X Mountain Lion - Move your Mac even further ahead.
+  Summary  : OS X Mountain Lion makes the Mac even better. And with so many new features, now the Mac works even better with iPhone, iPad, and iPod touch.
+]
+
+Relevant (Y/N)? Y
+Result 4
+[
+  URL      : http://store.apple.com/us/search?find=mac+os+x+10.6+snow+leopard
+  Title    : Snow Leopard
+  Summary  :           
+]
+
+Relevant (Y/N)? Y
+Result 5
+[
+  URL      : http://www.store.apple.com/us/product/MAC_OS_X_SNGL
+  Title    : Apple Store
+  Summary  :           
+]
+
+Relevant (Y/N)? Y
+Result 6
+[
+  URL      : http://www.amazon.com/Mac-version-10-6-3-Snow-Leopard/dp/B001AMHWP8
+  Title    : Amazon.com: Mac OS X version 10.6.3 Snow Leopard: Software
+  Summary  : Mac OS X Snow Leopard is an even more powerful and refined version of the world’s most advanced operating system. In ways big and small, it gets faster, more ...
+]
+
+Relevant (Y/N)? Y
+Result 7
+[
+  URL      : http://www.ebay.com/sch/i.html?_nkw=mac+os+x+snow+leopard
+  Title    : mac os x snow leopard | eBay - Electronics, Cars, Fashion ...
+  Summary  : Find mac os x snow leopard from a vast selection of Operating Systems. Shop eBay!
+]
+
+Relevant (Y/N)? Y
+Result 8
+[
+  URL      : http://www.cnet.com/mac-os-x-snow-leopard/
+  Title    : Mac OS X - Apple Mac Lion and Snow Leopard reviews and news - CNET.com
+  Summary  : CNET's comprehensive Mac OS X Lion and OS X Snow Leopard coverage: Get in-depth analysis of Lion's new features, how much it will cost you, what you'll ...
+]
+
+Relevant (Y/N)? Y
+Result 9
+[
+  URL      : http://www.gosale.com/4980799/mac-os-x-1063-snow-leopard
+  Title    : Mac OS X 10.6.3 Snow Leopard on sale for $99.77
+  Summary  : On sale at 10 deals for the Mac OS X 10.6.3 Snow Leopard at GoSale for just $110.99 if you buy today. Shop for bargains on the Apple OS 10.6.3.
+]
+
+Relevant (Y/N)? Y
+Result 10
+[
+  URL      : http://en.wikipedia.org/wiki/Mac_leopard
+  Title    : Mac OS X Leopard - Wikipedia, the free encyclopedia
+  Summary  : Since Apple moved to using Intel processors in their computers, the OSx86 project has developed and now also allows Mac OS X Tiger, Leopard, and Snow Leopard to be ...
+]
+
+Relevant (Y/N)? Y
+
+Precision@10 is: 1.0
+
+Indexing results...
+======================
+FEEDBACK SUMMARY
+Desired precision reached, done
+
+-----------------------------------------------------------------------------------------------------------------------
+QUERY TRANSCRIPT 3: 'bill'
+-----------------------------------------------------------------------------------------------------------------------
+$ python main.py .90 'bill'
+Desired precision@10: .90
+Parameters
+Client key          = gIz+khjqVUmq1bRIIB+Pv+r4U4ix6rtjqUkq3AYm6rM=
+Query               = bill
+Target Precision    = 0.9
+URL                 = https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?Query=%27bill%27&$top=10&$format=JSON
+Total number of results: 10
+======================
+Result 1
+[
+  URL      : http://www.bill.com/
+  Title    : Business Bill pay | Accounts Payable & Online invoicing | Bill.com
+  Summary  : Bill.com streamlines and automates your business bill payment, invoicing processes and gives you a complete visibility to your cash flow at any time
+]
+
+Relevant (Y/N)? N
+Result 2
+[
+  URL      : http://dictionary.reference.com/browse/bill
+  Title    : Bill | Define Bill at Dictionary.com
+  Summary  : noun 1. a statement of money owed for goods or services supplied: He paid the hotel bill when he checked out. 2. a piece of paper money worth a specified amount: a ...
+]
+
+Relevant (Y/N)? N
+Result 3
+[
+  URL      : http://en.wikipedia.org/wiki/Bill_(proposed_law)
+  Title    : Bill (law) - Wikipedia, the free encyclopedia
+  Summary  : A bill is a proposed law under consideration by a legislature. A bill does not become law until it is passed by the legislature and, in most cases, approved by the ...
+]
+
+Relevant (Y/N)? N
+Result 4
+[
+  URL      : http://en.wikipedia.org/wiki/Bill_Gates
+  Title    : Bill Gates - Wikipedia, the free encyclopedia
+  Summary  : William Henry "Bill" Gates III (born October 28, 1955) is an American business magnate and philanthropist. Gates is the former chief executive and current chairman of ...
+]
+
+Relevant (Y/N)? Y
+Result 5
+[
+  URL      : http://www.billoreilly.com/
+  Title    : Bill O'Reilly Official Home On The Web
+  Summary  : BillOReilly.com is the home of Bill O'Reilly on the web.
+]
+
+Relevant (Y/N)? N
+Result 6
+[
+  URL      : http://www.thefreedictionary.com/bill
+  Title    : bill - definition of bill by the Free Online Dictionary, Thesaurus ...
+  Summary  : bill 1 (b l) n. 1. An itemized list or statement of fees or charges. 2. A statement or list of particulars, such as a theater program or menu. 3.
+]
+
+Relevant (Y/N)? N
+Result 7
+[
+  URL      : http://left4dead.wikia.com/wiki/Bill
+  Title    : Bill - The Left 4 Dead Wiki - Left 4 Dead, Left 4 Dead 2 ...
+  Summary  : William "Bill" Overbeck is one of the four playable Survivors in Left 4 Dead. He is a Vietnam...
+]
+
+Relevant (Y/N)? N
+Result 8
+[
+  URL      : http://www.billlevkoff.com/
+  Title    : Bridesmaid Dresses and Formal Dresses by Bill Levkoff in New York
+  Summary  : Bridesmaid dresses, formal dresses and plus size bridesmaid dresses by New York designer Bill Levkoff. We have been dressing bridesmaids for over 60 years. View our ...
+]
+
+Relevant (Y/N)? N
+Result 9
+[
+  URL      : http://en.wiktionary.org/wiki/bill
+  Title    : bill - Wiktionary
+  Summary  : Any of various bladed or pointed hand weapons, originally designating an Anglo-Saxon sword, and later a weapon of infantry, especially in the 14th and 15th ...
+]
+
+Relevant (Y/N)? N
+Result 10
+[
+  URL      : http://www.thebill.com/
+  Title    : The Bill - Home
+  Summary  : Official site. News, plots, chat, merchandise and glimpses behind the scenes.
+]
+
+Relevant (Y/N)? N
+
+Precision@10 is: 0.1
+
+Indexing results...
+======================
+FEEDBACK SUMMARY
+
+Still below desired precision of 0.900000
+
+Augmenting by gates microsoft
+Parameters
+Client key          = gIz+khjqVUmq1bRIIB+Pv+r4U4ix6rtjqUkq3AYm6rM=
+Query               = bill gates microsoft
+Target Precision    = 0.9
+URL                 = https://api.datamarket.azure.com/Data.ashx/Bing/SearchWeb/v1/Web?Query=%27bill+gates+microsoft%27&$top=10&$format=JSON
+Total number of results: 10
+======================
+Result 1
+[
+  URL      : http://www.microsoft.com/en-us/news/exec/billg/
+  Title    : Bill Gates: Chairman - Microsoft Corporation: Software ...
+  Summary  : Updated: Aug. 3, 2011. William (Bill) H. Gates is chairman of Microsoft Corporation, the worldwide leader in software, services and solutions that help ...
+]
+
+Relevant (Y/N)? Y
+Result 2
+[
+  URL      : http://en.wikipedia.org/wiki/Bill_Gates
+  Title    : Bill Gates - Wikipedia, the free encyclopedia
+  Summary  : William Henry "Bill" Gates III (born October 28, 1955) is an American business magnate and philanthropist. Gates is the former chief executive and current chairman of ...
+]
+
+Relevant (Y/N)? Y
+Result 3
+[
+  URL      : http://www.biography.com/people/bill-gates-9307520
+  Title    : Bill Gates Biography - Facts, Birthday, Life Story - Biography.com
+  Summary  : Biography.com tracks Bill Gates from his early interest in computer programming to his place as the founder of Microsoft, the world's largest software business.
+]
+
+Relevant (Y/N)? Y
+Result 4
+[
+  URL      : http://en.wikipedia.org/wiki/History_of_Microsoft
+  Title    : History of Microsoft - Wikipedia, the free encyclopedia
+  Summary  : Microsoft is a multinational computer technology corporation. The history of Microsoft began on April 4, 1975, when it was founded by Bill Gates and Paul Allen in ...
+]
+
+Relevant (Y/N)? Y
+Result 5
+[
+  URL      : http://www.billgatesmicrosoft.com/biography.htm
+  Title    : Biography of Famous Bill Gates From Childhood - Wealth Inside Story
+  Summary  : It was during the spring term of 1968, at Lakeside Prep School that Bill Gates first used a computer.
+]
+
+Relevant (Y/N)? Y
+Result 6
+[
+  URL      : http://inventors.about.com/od/gstartinventors/a/Bill_Gates.htm
+  Title    : Bill Gates - Biography and History of the Microsoft Chairman
+  Summary  : A biography of Bill Gates - the founder of Microsoft. ... Bill Gates - Biography and History Bill Gates was the founder and first chairmen of Microsoft.
+]
+
+Relevant (Y/N)? Y
+Result 7
+[
+  URL      : http://microsoft.wikia.com/wiki/Bill_Gates
+  Title    : Bill Gates - Microsoft Wiki
+  Summary  : Bill Gates - full name William Henry Gates III - (born October 28, 1955) is the Chairman and former Chief Executive and Chief Software Architect of Microsoft.
+]
+
+Relevant (Y/N)? Y
+Result 8
+[
+  URL      : http://www.forbes.com/profile/bill-gates/
+  Title    : Bill Gates - Forbes - Information for the World's Business Leaders ...
+  Summary  : At a Glance. Co-Chair, Bill & Melinda Gates Foundation; Age: 56; Source of Wealth: Microsoft, Self-made
+]
+
+Relevant (Y/N)? Y
+Result 9
+[
+  URL      : http://news.bbc.co.uk/2/hi/business/7457191.stm
+  Title    : BBC NEWS | Business | Timeline: Bill Gates and Microsoft
+  Summary  : Bill Gates' life ... The history of the personal computer is inextricably linked to the life story of Bill Gates - the boy from Seattle who had the audacious vision ...
+]
+
+Relevant (Y/N)? Y
+Result 10
+[
+  URL      : http://www.billgatesmicrosoft.com/
+  Title    : Great Quotes : Wealth & Business quotations by Bill Gates - Online ...
+  Summary  : Bill Gates Quotes For Business, Funny, Life, Computer, Money, technology, experience, famous.
+]
+
+Relevant (Y/N)? Y
+
+Precision@10 is: 1.0
+
+Indexing results...
+======================
+FEEDBACK SUMMARY
+Desired precision reached, done
+
