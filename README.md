@@ -1,13 +1,9 @@
-##########################################
-# Advanced Database Systems
-# Fall 2012
-#
-# Project 1: Query Expansion Implementation
-# Done by: 
-#		Aiman Najjar (an2434)
-#		John Terzis (jt2514) 
-#
-##########################################
+# Rochhio Query Expansion Implementation
+* COMS E6111 Advanced Database Systems (Fall 2012)
+* Columbia University
+* Done by:
+	* Aiman Najjar (an2434)
+	* John Terzis (jt2514) 
 
 
 
@@ -121,7 +117,6 @@ We do not use this stemmer in default settings (see constants.py)
 		.
 		.		
 		other documents
-
    ]                               
 
 5. Algorithm & Design Explanation
