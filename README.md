@@ -13,10 +13,14 @@
 Unpack archive and from the command line in a Linux machine run using Python 2.7.3+
 Modify constants and set your BING Account Key
 
-python main.py <precision> <query>
-e.g. python main.py .90 'gates'
+	python main.py <precision> <query>
+	
+For example, to query for 'gates' keyword with target precision of 0.9, run:
 
-Various settings can be easily changed to experiment with results in constants.py
+	python main.py .90 'gates'
+
+
+Various settings can be easily changed to experiment with results in __constants.py__
 
 
 
