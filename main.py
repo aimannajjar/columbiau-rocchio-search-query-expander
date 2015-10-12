@@ -5,7 +5,7 @@ Created on Sep 21, 2012
 
 arguments: <precision> <query>
 
-Contains the main loop of the application 
+Contains the main loop of the application
 
 '''
 
@@ -30,11 +30,11 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.ERROR)
 
 #create all singleton objects
-    arglist = sys.argv 
+    arglist = sys.argv
     if len(arglist) < 3:
         print "Usage: <precision> <query>"
         sys.exit(1) #exit interpreter
-    
+
     print 'Desired precision@10: {}'.format(arglist[1])
 
     precisionTenTarg = float(arglist[1])   #must convert string to float
@@ -44,13 +44,13 @@ if __name__ == '__main__':
     bingClient = bingclient.BingClient(constants.BING_ACCT_KEY)
     indexer = indexer.Indexer()
     queryOptimizer = rocchio.RocchioOptimizeQuery(arglist[2])
-    
+
     firstPass = 1
     precisionAtK = 0.00
-    expandedQuery = arglist[2] 
-    queryWeights = {} 
+    expandedQuery = arglist[2]
+    queryWeights = {}
 
-    
+
     #while precision at 10 is less than desired amt issue a query, obtain new precision metric, expand query, repeat
     while (precisionAtK < precisionTenTarg):
         precisionAtK = 0.00 #reset precision each round
@@ -70,15 +70,15 @@ if __name__ == '__main__':
             result = bingClient.webQuery(arglist[2])
         else:
             result = bingClient.webQuery(expandedQuery)
-            
+
         jsonResult = json.loads(result)  #convert string to json
         #put result into a list of documents
         parsedResult = parser.Parser(jsonResult['d']['results'])
         parsedResult.parser()
         DocumentList = parsedResult.getDocList()
-         
+
         print 'Total number of results: %d' % len(DocumentList)
-        
+
         #to calc precision@10 display documents to user and ask them to categorize as Relevant or Non-Relevant
         print '======================'
 
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
             print 'Result %d' % (i+1)
             print '['
-            print '  %-9s: %10s' % ("URL", DocumentList[i]["Url"])                        
+            print '  %-9s: %10s' % ("URL", DocumentList[i]["Url"])
             print '  %-9s: %10s' % ("Title", DocumentList[i]["Title"])
             print '  %-9s: %10s' % ("Summary", DocumentList[i]["Description"])
             print ']'
@@ -102,21 +102,21 @@ if __name__ == '__main__':
             print ''
             sys.stdout.write('Relevant (Y/N)? ')
             value = raw_input()
-            if value == 'Y':
+            if value.upper() == 'Y':
                 DocumentList[i]['IsRelevant'] = 1   #1 is true , 0 is false
                 precisionAtK = precisionAtK + 1
                 relevantDocuments.append(i)
-                
-            elif value == 'N':
+
+            elif value.upper() == 'N':
                 DocumentList[i]['IsRelevant'] = 0   #1 is true , 0 is false
                 nonrelevantDocuments.append(i)
             else:
                 print 'Invalid value entered!'
-        
 
-        
+
+
         precisionAtK = float(precisionAtK) / 10  #final precision@10 per round
-        
+
         print ''
         print 'Precision@10 is: {}'.format(float(precisionAtK))
         print ''
@@ -129,7 +129,7 @@ if __name__ == '__main__':
         print 'Indexing results...'
         indexer.waitForIndexer() # Will block until indexer is done indexing all documents
 
-        
+
 
 
         # Print inveretd file
@@ -144,8 +144,8 @@ if __name__ == '__main__':
         if (precisionAtK < precisionTenTarg):
             print ''
             print 'Still below desired precision of %f' % precisionTenTarg
-            queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments)   #optimize new query here 
-            
+            queryWeights = queryOptimizer.Rocchio(indexer.invertedFile, DocumentList, relevantDocuments, nonrelevantDocuments)   #optimize new query here
+
 
             newTerms = common.getTopTerms(expandedQuery, queryWeights, 2)
             expandedQuery = expandedQuery + " " + newTerms[0] + " " + newTerms[1]
@@ -154,10 +154,9 @@ if __name__ == '__main__':
             print 'Augmenting by %s %s' % (newTerms[0], newTerms[1])
 
 
-    #precision@10 is > desired , return query and results to user 
+    #precision@10 is > desired , return query and results to user
     print 'Desired precision reached, done'
-        
-    
-  
-    
-    
+
+
+
+
