@@ -58,7 +58,6 @@ if __name__ == '__main__':
 
 
         print 'Parameters'
-        print '%-20s= %s' % ("Client key", constants.BING_ACCT_KEY)
         print '%-20s= %s' % ("Query", expandedQuery)
         print '%-20s= %s' % ("Target Precision", precisionTenTarg)
 

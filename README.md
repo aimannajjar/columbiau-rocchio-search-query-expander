@@ -11,7 +11,6 @@
 1 . Installation & Usage:
 --------------------------
 Unpack archive and from the command line in a Linux machine run using Python 2.7.3+
-Modify constants and set your BING Account Key
 
 	python main.py <precision> <query>
 
@@ -19,7 +18,7 @@ For example, suppose we want results relevant only to Bill Gates when we run the
 
 	python main.py .90 'gates'
 
-Initially, the web search will return various results, some of them are related to Bill Gates while others are related to the actual word "gate" (door). You will be prompted to indicate which results are relevant to your search, then the tool will perform another search but will add new keywords it learned from the results you marked as relevant, by adding this keywords the next results will have higher precision. This will continue to iterate until the target precision has been achieved.
+Initially, the web search will return various results, some of them are related to Bill Gates while others are related to the actual word "gate" (door). You will be prompted to indicate which results are relevant to your search. Go ahead and mark results related to Bill Gates as relevant, and everything else as irrelevant. The tool will perform another search but will augment your query with keywords it learned from the results you marked as relevant, by adding this keywords the next results will have higher precision. This will continue to iterate until the target precision has been achieved.
 
 Various settings can be easily changed to experiment with results in __constants.py__
 
