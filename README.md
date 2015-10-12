@@ -17,10 +17,11 @@ Unpack archive and from the command line in a Linux machine run using Python 2.7
 For example, suppose we want results relevant only to Bill Gates when we run the query 'gates' with target precision of 0.9:
 
 	python main.py .90 'gates'
+	
+![screenshot query expansion example] (https://s3.amazonaws.com/aimannajjar.com/assets/images/portfolio/rocchio.png)
 
 Initially, the web search will return various results, some of them are related to Bill Gates while others are related to the actual word "gate" (door). You will be prompted to indicate which results are relevant to your search. Go ahead and mark results related to Bill Gates as relevant, and everything else as irrelevant. The tool will perform another search but will augment your query with keywords it learned from the results you marked as relevant, by adding this keywords the next results will have higher precision. This will continue to iterate until the target precision has been achieved.
 
-![screenshot query expansion example] (https://s3.amazonaws.com/aimannajjar.com/assets/images/portfolio/rocchio.png)
 
 Various settings can be easily changed to experiment with results in __constants.py__
 
